@@ -1,7 +1,11 @@
 parameters:
-#    namshi_google_doc_configuration.example.class: Namshi\GoogleDocConfigurationBundle\Example
+    namshi_google_doc_configuration.config.google_doc_key: 1234
 
 services:
-#    namshi_google_doc_configuration.example:
-#        class: %namshi_google_doc_configuration.example.class%
-#        arguments: [@service_id, "plain_value", %parameter%]
+    namshi_google_doc_configuration.config:
+        class: Namshi\GoogleDocConfigurationBundle\Config
+        arguments: ["@=service('namshi_google_doc_configuration.gvalue').getDocument(parameter('namshi_google_doc_configuration.config.google_doc_key'))", @namshi_google_doc_configuration.predis]
+    namshi_google_doc_configuration.gvalue:
+        class: Namshi\Gvalue
+    namshi_google_doc_configuration.predis:
+      alias: redis
