@@ -1,0 +1,36 @@
+<html>
+    <head>
+        <style>
+            * {
+                font-family: Verdana;
+                font-size:  35px;
+            }
+            .row {
+                background-color: #E6E6E6;
+            }
+            td {
+                padding: 30px;
+                margin: 30px;
+            }
+        </style>
+    </head>
+    <body>
+        <img src="{{ chuck }}" />
+        <table>
+            <tr>
+                <th>
+                    Config key
+                </th>
+                <th>
+                    Value
+                </th>
+            </tr>
+            {% for parameter, value in config %}
+                <tr class="row{{ loop.index is odd }}">
+                    <td>{{ parameter }}</td>
+                    <td>{{ value }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </body>
+</html>

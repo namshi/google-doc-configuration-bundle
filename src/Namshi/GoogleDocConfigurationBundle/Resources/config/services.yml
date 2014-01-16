@@ -1,10 +1,10 @@
 parameters:
-    namshi_google_doc_configuration.config.google_doc_key: 1234
+    namshi_google_doc_configuration.config.google_doc_key: 0Au4X4OwTcvrSdG5oZkFXMXM5SUl4YVF5bDV2NmZiSmc
 
 services:
     namshi_google_doc_configuration.config:
-        class: Namshi\GoogleDocConfigurationBundle\Config
-        arguments: ["@=service('namshi_google_doc_configuration.gvalue').getDocument(parameter('namshi_google_doc_configuration.config.google_doc_key'))", @namshi_google_doc_configuration.predis]
+        class: Namshi\GoogleDocConfigurationBundle\Config\RedisConfig
+        arguments: [@namshi_google_doc_configuration.predis, 'namshi.config']
     namshi_google_doc_configuration.gvalue:
         class: Namshi\Gvalue
     namshi_google_doc_configuration.predis:

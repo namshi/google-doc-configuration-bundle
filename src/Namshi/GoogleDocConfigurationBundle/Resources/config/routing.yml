@@ -1,3 +1,7 @@
-namshi_google_doc_configuration_homepage:
+namshi_google_doc_configuration.update:
     pattern:  /namshi/update-config
     defaults: { _controller: NamshiGoogleDocConfigurationBundle:Config:update  }
+
+namshi_google_doc_configuration.show:
+    pattern:  /namshi/config
+    defaults: { _controller: NamshiGoogleDocConfigurationBundle:Config:show  }
