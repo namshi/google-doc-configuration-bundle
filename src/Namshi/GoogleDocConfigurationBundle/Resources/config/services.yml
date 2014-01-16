@@ -1,5 +1,5 @@
 parameters:
-    namshi_google_doc_configuration.config.google_doc_key: 0Au4X4OwTcvrSdG5oZkFXMXM5SUl4YVF5bDV2NmZiSmc
+#    namshi_google_doc_configuration.config.google_doc_key: 0Au4X4OwTcvrSdG5oZkFXMXM5SUl4YVF5bDV2NmZiSmc
 
 services:
     namshi_google_doc_configuration.config:
