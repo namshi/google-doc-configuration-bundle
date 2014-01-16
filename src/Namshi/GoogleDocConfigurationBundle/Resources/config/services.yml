@@ -7,5 +7,5 @@ services:
         arguments: [@namshi_google_doc_configuration.predis, 'namshi.config']
     namshi_google_doc_configuration.gvalue:
         class: Namshi\Gvalue
-    namshi_google_doc_configuration.predis:
-      alias: redis
+#    namshi_google_doc_configuration.predis:
+#      alias: redis
