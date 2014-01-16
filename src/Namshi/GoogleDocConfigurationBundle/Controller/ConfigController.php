@@ -25,6 +25,11 @@ class ConfigController extends Controller
     {
         try {
             $newConfig = $this->get('namshi_google_doc_configuration.gvalue')->getDocument($this->container->getParameter('namshi_google_doc_configuration.config.google_doc_key'));
+
+            if ($this->has('namshi_google_doc_configuration.validator')) {
+                $this->get('namshi_google_doc_configuration.validator')->validate($newConfig);
+            }
+
             $this->getConfiguration()->update($newConfig);
 
             return $this->render('NamshiGoogleDocConfigurationBundle:Config:success.html.twig', array(
