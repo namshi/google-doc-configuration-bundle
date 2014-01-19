@@ -2,7 +2,7 @@
 
 namespace Namshi\GoogleDocConfigurationBundle\Config;
 
-use Predis\Client;
+use Predis\ClientInterface;
 
 /**
  * Class Config represent a key-value configuration.
@@ -23,7 +23,7 @@ class RedisConfig implements ConfigInterface
      */
     protected $configHash = self::REDIS_CONFIG_HASH;
 
-    public function __construct(Client $redis, $configHash = null)
+    public function __construct(ClientInterface $redis, $configHash = null)
     {
         $this->setRedis($redis);
 
