@@ -2,7 +2,9 @@
 
 namespace Namshi\GoogleDocConfigurationBundle\Controller;
 
+use Namshi\GoogleDocConfigurationBundle\Config\TransformerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Config\Definition\Exception\InvalidTypeException;
 
 /**
  * Class ConfigController provides a simple layer to update configuration based on a config object.
@@ -26,8 +28,16 @@ class ConfigController extends Controller
         try {
             $newConfig = $this->get('namshi_google_doc_configuration.gvalue')->getDocument($this->container->getParameter('namshi_google_doc_configuration.config.google_doc_key'));
 
-            if ($this->has('namshi_google_doc_configuration.validator')) {
-                $this->get('namshi_google_doc_configuration.validator')->validate($newConfig);
+            if ($this->has('namshi_google_doc_configuration.transformer')) {
+                $transformer = $this->get('namshi_google_doc_configuration.transformer');
+
+                if ($transformer instanceof TransformerInterface) {
+                    $newConfig = $transformer->transform($newConfig);
+                } else {
+                    throw new InvalidTypeException(
+                        sprintf('Expecting an instance of TransformerInterface and got %s instead', get_class($newConfig))
+                    );
+                }
             }
 
             $this->getConfiguration()->update($newConfig);

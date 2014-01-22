@@ -3,18 +3,18 @@
 namespace Namshi\GoogleDocConfigurationBundle\Config;
 
 /**
- * Interface ValidatorInterface
+ * Interface TransformerInterfaceInterface
  *
  * @package Namshi\GoogleDocConfigurationBundle\Config
  */
-interface ValidatorInterface
+interface TransformerInterface
 {
     /**
-     * Validates the $confid, throwing an exception if it contains an invalid value.
+     * transform the $config, throwing an exception if transformation failed.
      *
      * @param array $config
      * @return null
      * @throws \Exception
      */
-    public function validate(array $config);
-} 
+    public function transform(array $config);
+}
