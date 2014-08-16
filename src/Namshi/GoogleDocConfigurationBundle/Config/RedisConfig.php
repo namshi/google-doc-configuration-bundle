@@ -19,16 +19,30 @@ class RedisConfig implements ConfigInterface
     protected $redis;
 
     /**
+     * @var array
+     */
+    protected $cache = [];
+
+    /**
      * @var string
      */
     protected $configHash = self::REDIS_CONFIG_HASH;
 
-    public function __construct(ClientInterface $redis, $configHash = null)
+    /**
+     * @param ClientInterface $redis
+     * @param null $configHash
+     * @param bool $greedy if it's true it will fetch all configs per redis hash in one shot
+     */
+    public function __construct(ClientInterface $redis, $configHash = null, $greedy = false)
     {
-        $this->setRedis($redis);
+        $this->redis = $redis;
 
         if ($configHash) {
             $this->setConfigHash($configHash);
+        }
+
+        if ($greedy) {
+            $this->cache[$this->getConfigHash()] = $this->getAll();
         }
     }
 
@@ -37,6 +51,11 @@ class RedisConfig implements ConfigInterface
      */
     public function get($key, $default = null)
     {
+        if (isset($this->cache[$this->getConfigHash()][$key])) {
+
+            return $this->cache[$this->getConfigHash()][$key];
+        }
+
         return $this->getRedis()->hget($this->getConfigHash(), $key) ?: $default;
     }
 
@@ -63,15 +82,9 @@ class RedisConfig implements ConfigInterface
             $this->getRedis()->hdel($this->getConfigHash(), $parameter);
         }
 
-        return $this->getAll();
-    }
+        $this->resetCache($this->getConfigHash());
 
-    /**
-     * @param \Predis\Client $redis
-     */
-    public function setRedis($redis)
-    {
-        $this->redis = $redis;
+        return $this->getAll();
     }
 
     /**
@@ -96,5 +109,19 @@ class RedisConfig implements ConfigInterface
     public function getConfigHash()
     {
         return $this->configHash;
+    }
+
+    /**
+     * It resets the cache, if the config hash is specified it will just clear that entry
+     *
+     * @param null $configHash
+     */
+    public function resetCache($configHash = null)
+    {
+        if (null !== $configHash && isset($this->cache[$configHash])) {
+            $this->cache[$configHash] = [];
+        } else {
+            $this->cache = [];
+        }
     }
 } 
