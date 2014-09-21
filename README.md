@@ -6,11 +6,27 @@
 > Sounds crazy but it's even worse.
 
 This bundle will let you use a Google Doc to store key-value
-pairs and re-use them within your Symfony2 app.
+pairs and re-use them within your Symfony2 app: this means
+that any human capable with interacting with a spreadsheet
+can play around and configure your app.
+
+The values are "public", in the sense that you will need to share
+the Google Doc ("Publish to the web") so anyone with the link
+can access it, even though guessing the URL of the doc isn't trivial.
+
+In any case, you should use this tecnique to store things like
+
+* cache TTL
+* products per page
+* banner URLs
+
+and so on and so fort. **Do not** store passwords or sensitive data
+there.
 
 ## Installation
 
-You can easily install this library through [composer](https://packagist.org/packages/namshi/google-doc-configuration-bundle):
+You can easily install this library through
+[composer](https://packagist.org/packages/namshi/google-doc-configuration-bundle):
 
 ```
 "namshi/google-doc-configuration-bundle": "dev-master"
