@@ -11,8 +11,9 @@ that any human capable with interacting with a spreadsheet
 can play around and configure your app.
 
 The values are "public", in the sense that you will need to share
-the Google Doc ("Publish to the web") so anyone with the link
-can access it, even though guessing the URL of the doc isn't trivial.
+the Google Doc ("[Publish to the web](https://support.google.com/docs/answer/37579?hl=en)")
+so anyone with the link can access it, even though guessing the
+URL of the doc isn't trivial.
 
 In any case, you should use this tecnique to store things like
 
@@ -67,6 +68,21 @@ utility:
 You can then check `http://domain.example/namshi/config` to check your configuration
 and `http://domain.example/namshi/update-config` to update it from
 the Google Doc.
+
+## Storing the config in different ways
+
+We use [Redis](https://github.com/namshi/google-doc-configuration-bundle/blob/127a9df511437764d2e33f8fc8d36c38d9ac5f5a/src/Namshi/GoogleDocConfigurationBundle/Config/RedisConfig.php)
+but you are free to implement the
+[ConfigInterface](https://github.com/namshi/google-doc-configuration-bundle/blob/127a9df511437764d2e33f8fc8d36c38d9ac5f5a/src/Namshi/GoogleDocConfigurationBundle/Config/ConfigInterface.php)
+and have fun with it.
+
+## Transforming values
+
+If you need to process / transform values out of the Google Do, ie. transforming
+`"false"` to `false` you can simply define a `namshi_google_doc_configuration.transformer`
+service and let it implement the [TransformerInterface](https://github.com/namshi/google-doc-configuration-bundle/blob/127a9df511437764d2e33f8fc8d36c38d9ac5f5a/src/Namshi/GoogleDocConfigurationBundle/Config/TransformerInterface.php).
+
+This is probably not so clean but you can live with it, for now :)
 
 ## Tests
 
